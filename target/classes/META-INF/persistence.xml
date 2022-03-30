@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="DB" transaction-type="RESOURCE_LOCAL">
+    <class>com.PC00466_VoDangKhoa_ASM_java4.entity.Users</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=PC00466_VoDangKhoa_DB_ASM"/>
+            <property name="javax.persistence.jdbc.password" value="0907852396"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
+              <property name="hibernate.format_sql" value="true"/>
+            <property name ="hibernate.show_sql" value = "true" />
+             <property name ="hibernate.globally_quoted_identifiers" value = "true" /> <!-- để fix lỗi Error while committing the transaction -->
+        </properties>
+    </persistence-unit>
+</persistence>
