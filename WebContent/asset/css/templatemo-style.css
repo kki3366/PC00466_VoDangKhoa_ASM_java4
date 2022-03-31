@@ -216,6 +216,7 @@ a:hover { color:#009999; }
 .tm-mb-74 { margin-bottom: 74px; }
 .tm-mb-90 { margin-bottom: 90px; }
 .tm-text-primary { color: #009999; }
+.tm-text-danger{ color: #dc3545; }
 .tm-text-secondary { color: #CC6699; }
 a.tm-text-primary:hover { color:#666666; }
 .tm-bg-gray { background-color: #EEEEEE; }

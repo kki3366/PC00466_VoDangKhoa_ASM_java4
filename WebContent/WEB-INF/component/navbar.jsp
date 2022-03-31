@@ -24,7 +24,7 @@
                 <li class="nav-item">
                     <a class="nav-link nav-link-4" href="contact.html">Contact</a>
                 </li> -->
-                <button type="button" class="btn btn-primary"><a href="${pageContext.request.contextPath}/login">Login</a></button>
+                <button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/login'">Login</button>
             </ul>
             </div>
         </div>
