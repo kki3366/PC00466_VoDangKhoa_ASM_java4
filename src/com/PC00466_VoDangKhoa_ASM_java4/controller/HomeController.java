@@ -15,7 +15,7 @@ import com.PC00466_VoDangKhoa_ASM_java4.entity.Users;
 
 
 
-@WebServlet({"/home","/login","/register"})
+@WebServlet({"/home","/login","/register","/rememberPassword"})
 public class HomeController extends HttpServlet{
 
 	
@@ -31,13 +31,20 @@ public class HomeController extends HttpServlet{
 		}else if(uri.contains("register")) {
 			req.setAttribute("view", "/WEB-INF/component/register.jsp");
 			this.doRegister(req,resp);
+		}else if(uri.contains("rememberPassword")) {
+			req.setAttribute("view", "/WEB-INF/component/rememberPassword.jsp");
+			this.doRememberPassword(req,resp);
 		}
 		
 		req.getRequestDispatcher("/WEB-INF/index.jsp").include(req, resp);
 	}
 
 	
-	// chưa bắt lỗi
+	private void doRememberPassword(HttpServletRequest req, HttpServletResponse resp) {
+		
+	}
+
+
 	private void doRegister(HttpServletRequest req, HttpServletResponse resp) {
 		String method = req.getMethod();
 		if (method.equalsIgnoreCase("POST")) {
@@ -71,11 +78,15 @@ public class HomeController extends HttpServlet{
 			String id = req.getParameter("username");
 			String pw = req.getParameter("password");
 			
+			boolean flag = false;
 			try {
 				UserDAO dao = new UserDAO();
 				Users user = dao.findById(id);
 				if (!user.getPassword().equals(pw)) {
-					req.setAttribute("msg", "sai mật khẩu");
+					req.setAttribute("msg", "Sai mật khẩu");
+					req.setAttribute("passwordValition", "border: 2px solid rgb(188 1 1 / 25%)");
+					flag = true;
+					req.setAttribute("flag", flag);
 				} else {
 					req.setAttribute("msg", "Đăng nhập thành công");
 					req.getSession().setAttribute("user", user);
@@ -83,9 +94,14 @@ public class HomeController extends HttpServlet{
 						return;
 				}
 		}catch (Exception e) {
-			req.setAttribute("msg", "Sai tên đăng nhập <a href=''>Quên mật khẩu</a>");
+			req.setAttribute("msg", "Sai tên đăng nhập");
+			flag = true;
+			req.setAttribute("flag", flag);
+			req.setAttribute("usernameValition", "border: 2px solid rgb(188 1 1 / 25%)");
 			e.printStackTrace();
 		}
+			
+			
 	}
 
 }

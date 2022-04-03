@@ -16,6 +16,9 @@ TemplateMo 556 Catalog-Z
 https://templatemo.com/tm-556-catalog-z
 
 -->
+<style type="text/css">
+${css}
+</style>
 </head>
 <body>
     <!-- Page Loader -->
