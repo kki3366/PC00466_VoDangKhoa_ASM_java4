@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 import com.PC00466_VoDangKhoa_ASM_java4.entity.Users;
 import com.PC00466_VoDangKhoa_ASM_java4.helper.JpaHelper;
 
+
 public class UserDAO extends DAO<Users, String> {
 
 	
@@ -72,4 +73,12 @@ public class UserDAO extends DAO<Users, String> {
 		return users;
 	}
 
+	public Users findByEmail(String email) {
+		String jpql = "select n from Users n where n.email =:email";
+		TypedQuery<Users> query = entityManager.createQuery(jpql,Users.class);
+		query.setParameter("email", email);
+		Users user = query.getSingleResult();
+		return user;
+		
+	}
 }

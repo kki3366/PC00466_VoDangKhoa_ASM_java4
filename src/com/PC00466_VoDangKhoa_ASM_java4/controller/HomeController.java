@@ -1,7 +1,6 @@
 package com.PC00466_VoDangKhoa_ASM_java4.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +14,8 @@ import com.PC00466_VoDangKhoa_ASM_java4.entity.Users;
 
 
 
-@WebServlet({"/home","/login","/register","/rememberPassword"})
+
+@WebServlet({"/home","/login","/register"})
 public class HomeController extends HttpServlet{
 
 	
@@ -26,23 +26,21 @@ public class HomeController extends HttpServlet{
 		if(uri.contains("home")) {
 			req.setAttribute("view", "/WEB-INF/component/videoBody.jsp");
 		}else if(uri.contains("login")) {
-			req.setAttribute("view", "/WEB-INF/component/login.jsp");
-			this.doSignIn(req,resp);
+			if(req.getSession().getAttribute("user") != null) {
+				resp.sendRedirect(req.getContextPath() + "/home");
+				return;
+			}else {
+				req.setAttribute("view", "/WEB-INF/component/login.jsp");
+				this.doSignIn(req,resp);
+			}
 		}else if(uri.contains("register")) {
 			req.setAttribute("view", "/WEB-INF/component/register.jsp");
 			this.doRegister(req,resp);
-		}else if(uri.contains("rememberPassword")) {
-			req.setAttribute("view", "/WEB-INF/component/rememberPassword.jsp");
-			this.doRememberPassword(req,resp);
 		}
 		
 		req.getRequestDispatcher("/WEB-INF/index.jsp").include(req, resp);
 	}
 
-	
-	private void doRememberPassword(HttpServletRequest req, HttpServletResponse resp) {
-		
-	}
 
 
 	private void doRegister(HttpServletRequest req, HttpServletResponse resp) {
@@ -90,8 +88,13 @@ public class HomeController extends HttpServlet{
 				} else {
 					req.setAttribute("msg", "Đăng nhập thành công");
 					req.getSession().setAttribute("user", user);
-						resp.sendRedirect(req.getContextPath() + "/home");
+					
+					Users users = (Users) req.getSession().getAttribute("user");
+					if(users.getRole() == true) {
+						resp.sendRedirect(req.getContextPath() + "/admin");
 						return;
+					}
+						
 				}
 		}catch (Exception e) {
 			req.setAttribute("msg", "Sai tên đăng nhập");
@@ -102,7 +105,10 @@ public class HomeController extends HttpServlet{
 		}
 			
 			
+			
+			
 	}
 
 }
+	
 }
