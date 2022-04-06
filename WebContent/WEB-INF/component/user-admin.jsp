@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="com.PC00466_VoDangKhoa_ASM_java4.entity.Users"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +23,7 @@ ${css}
 </style>
 </head>
 <body>
+<c:url var="url" value="/userManager" />
     <!-- Page Loader -->
     <div id="loader-wrapper">
         <div id="loader"></div>
@@ -59,24 +61,25 @@ ${css}
           <div class="row tm-mb-90 tm-gallery">
            
 
-            <form class="mt-3">
+            <form class="mt-3" action="${url}" method="POST">
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Username</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+           
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="${test.id }">
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1">
+                  <input type="password" class="form-control" id="" value="${test.password}">
                 </div>
                
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Fullname</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1">
+                    <input type="text" class="form-control" id="exampleInputPassword1" value="${test.fullname }">
                   </div>
 
                   <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Email Address</label>
-                    <input type="email" class="form-control" id="exampleInputPassword1">
+                    <input type="email" class="form-control" id="exampleInputPassword1" value="${test.email }">
                   </div>
               </form>
 
@@ -146,6 +149,10 @@ ${css}
         $(window).on("load", function() {
             $('body').addClass('loaded');
         });
+    </script>
+    <script>
+		var x = <%= request.getAttribute("test")%>;
+		console.log(x);
     </script>
 </body>
 </html>

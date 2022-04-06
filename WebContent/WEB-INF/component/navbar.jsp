@@ -23,7 +23,7 @@
                     <a class="nav-link nav-link-2" href="">Videos Admin</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-3" href="${pageContext.request.contextPath}/admin/user">User</a>
+                    <a class="nav-link nav-link-3" href="${pageContext.request.contextPath}/userManager">User</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-4" href="contact.html">Contact</a>
