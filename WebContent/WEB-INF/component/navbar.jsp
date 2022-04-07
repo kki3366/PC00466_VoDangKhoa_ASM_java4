@@ -28,6 +28,9 @@
                 <li class="nav-item">
                     <a class="nav-link nav-link-4" href="contact.html">Contact</a>
                 </li>
+                 <li class="nav-item">
+                    <a class="nav-link nav-link-4" href="">Logout</a>
+                </li>
                
             </ul>
             </div>

@@ -50,7 +50,7 @@ ${css}
           <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">
             User Editor
           </button>
-          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+          <button class="nav-link " id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
             User Lists
           </button>
       
@@ -61,41 +61,46 @@ ${css}
           <div class="row tm-mb-90 tm-gallery">
            
 
-            <form class="mt-3" action="${url}" method="POST">
+            <form class="mt-3" action="${url}" method="POST" id="userManagerForm">
+            <span>${msg }</span>
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Username</label>
            
-                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="${test.id }">
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="id" value="${test.id }">
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="" value="${test.password}">
+                  <input type="password" class="form-control" id="" name="password" value="${test.password}">
                 </div>
                
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Fullname</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" value="${test.fullname }">
+                    <input type="text" class="form-control" id="exampleInputPassword1" name="fullname" value="${test.fullname }">
                   </div>
 
                   <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Email Address</label>
-                    <input type="email" class="form-control" id="exampleInputPassword1" value="${test.email }">
+                    <input type="email" class="form-control" id="exampleInputPassword1" name="email" value="${test.email }">
                   </div>
-              </form>
 
-
-        
-            <div class="form-floating">
+                   <div class="form-floating">
              
               <br>
               <div class="d-flex align-items-center flex-row-reverse">
                 <div class="button1">
-                    <button type="button" class="btn btn-dark">Update</button>
-                <button type="button" class="btn btn-dark">Delete</button>
-                
+                    
+                <button type="submit" class="btn btn-dark" formaction="${url}/update">Update</button>
+                <button type="submit" class="btn btn-dark" formaction="${url}/delete">Delete</button>
+               
+              
                 </div>
               </div>
             </div>
+              </form>
+
+
+        
+           
           </div>
         </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -145,14 +150,12 @@ ${css}
     <script src="${pageContext.request.contextPath}/asset/js/plugins.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(window).on("load", function() {
             $('body').addClass('loaded');
         });
     </script>
-    <script>
-		var x = <%= request.getAttribute("test")%>;
-		console.log(x);
-    </script>
+   
 </body>
 </html>
