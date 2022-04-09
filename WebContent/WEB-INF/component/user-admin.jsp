@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="com.PC00466_VoDangKhoa_ASM_java4.entity.Users"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,11 +65,11 @@ ${css}
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Username</label>
            
-                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="id" value="${test.id }">
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="id" value="${test.id }" pattern="[a-zA-Z0-9]+">
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="" name="password" value="${test.password}">
+                  <input type="password" class="form-control" id="" name="password" value="${test.password}" pattern="[a-zA-Z0-9]+">
                 </div>
                
                 <div class="mb-3">

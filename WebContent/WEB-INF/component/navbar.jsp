@@ -14,13 +14,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
              <li class="nav-item">
-                    <a class="nav-link nav-link-1 active" aria-current="page" href="index.html">Welcome ${ sessionScope.user.fullname}</a>
+                    <a class="nav-link nav-link-1 active" aria-current="page" href="${pageContext.request.contextPath}/admin">Welcome ${ sessionScope.user.fullname}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-1" aria-current="page" href="index.html">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-2" href="">Videos Admin</a>
+                    <a class="nav-link nav-link-2" href="${pageContext.request.contextPath}/videoAdmin">Videos Admin</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-3" href="${pageContext.request.contextPath}/userManager">User</a>
@@ -29,7 +29,7 @@
                     <a class="nav-link nav-link-4" href="contact.html">Contact</a>
                 </li>
                  <li class="nav-item">
-                    <a class="nav-link nav-link-4" href="">Logout</a>
+                    <a class="nav-link nav-link-4" href="${pageContext.request.contextPath}/logoutAdmin">Logout</a>
                 </li>
                
             </ul>

@@ -14,7 +14,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import com.PC00466_VoDangKhoa_ASM_java4.DAO.UserDAO;
 import com.PC00466_VoDangKhoa_ASM_java4.entity.Users;
 
-@WebServlet({"/admin","/userManager","/userManager/edit/*","/userManager/update","/userManager/delete"})
+@WebServlet({"/admin","/userManager","/userManager/edit/*","/userManager/update","/userManager/delete","/logoutAdmin"})
 public class AdminController extends HttpServlet{
 	UserDAO userDAO = new UserDAO();
 	
@@ -37,43 +37,78 @@ public class AdminController extends HttpServlet{
 //			
 			
 			this.doUser(req,resp);
+		}else if(uri.contains("logoutAdmin")) {
+			this.dologoutAdmin(req,resp);
+		}
+		
+	}
+	boolean flag;
+	
+	private void dologoutAdmin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		Users users = (Users) req.getSession().getAttribute("user");
+		if(users == null) {
+			resp.sendRedirect(req.getContextPath() + "/login");
+			return;
+		}else if(users != null && users.getRole() == false) {
+			resp.sendRedirect(req.getContextPath() + "/User");
+			return;
+		}else {
+			req.getSession().invalidate();
+			flag = true;
+			resp.sendRedirect(req.getContextPath() + "/login");
 		}
 		
 	}
 
-	
-	boolean flag;
+
+
 	private void doEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-		UserDAO userDAO = new UserDAO();
-		String uri = req.getRequestURI();
-		String id = uri.substring(uri.lastIndexOf("/") + 1);
-//		System.out.println(id);
-		user =userDAO.findById(id);
-		flag = false;
+		
+		Users users = (Users) req.getSession().getAttribute("user");
+		if(users != null && users.getRole() == false) {
+			req.getRequestDispatcher("/WEB-INF/component/AccessPage.jsp").include(req, resp);
+			return;
+		}else {
+
+			UserDAO userDAO = new UserDAO();
+			String uri = req.getRequestURI();
+			String id = uri.substring(uri.lastIndexOf("/") + 1);
+//			System.out.println(id);
+			user =userDAO.findById(id);
+			flag = false;
+		}
+		
 	}
 	Users user = new Users();
 
 	
 private void doUpdate(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		
-	String id = req.getParameter("id");
 	Users users = (Users) req.getSession().getAttribute("user");
-	System.out.println("session user" + users.getId());
-	System.out.println("id của param" + id);
-	if(userDAO.findById(id) != null) {
-		if(users.getId().equals(id)) {
-			req.setAttribute("msg", "không được update user hiện đang đăng nhập");
-		}else {
-			try {
-				BeanUtils.populate(user, req.getParameterMap());
-				userDAO.update(user);
-				req.setAttribute("msg", "Update thành công");
-			} catch (Exception e) {
-				req.setAttribute("msg", "Update không thành công");
-				
+	if(users != null && users.getRole() == false) {
+		req.getRequestDispatcher("/WEB-INF/component/AccessPage.jsp").include(req, resp);
+		return;
+	}else {
+		String id = req.getParameter("id");
+		System.out.println("session user" + users.getId());
+		System.out.println("id của param" + id);
+		if(userDAO.findById(id) != null) {
+			if(users.getId().equals(id)) {
+				req.setAttribute("msg", "không được update user hiện đang đăng nhập");
+			}else {
+				try {
+					BeanUtils.populate(user, req.getParameterMap());
+					userDAO.update(user);
+					req.setAttribute("msg", "Update thành công");
+				} catch (Exception e) {
+					req.setAttribute("msg", "Update không thành công");
+					
+				}
+				flag = true;
 			}
-			flag = true;
-		}
+		
+	}else {
+		req.setAttribute("msg", "User không tồn tại không thể Update");
+	}
 	}
 	
 		
@@ -81,26 +116,47 @@ private void doUpdate(HttpServletRequest req, HttpServletResponse resp) throws I
 
 	private void doUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		if(flag == true) {
-			req.removeAttribute("test");
+		Users users = (Users) req.getSession().getAttribute("user");
+		if(users == null) {
+			req.getRequestDispatcher("/WEB-INF/component/AccessPage1.jsp").include(req, resp);
+			return;
+		}else if(users != null && users.getRole() == false) {
+			req.getRequestDispatcher("/WEB-INF/component/AccessPage.jsp").include(req, resp);
+			return;
 		}else {
-			req.setAttribute("test", user);
+			if(flag == true) {
+				req.removeAttribute("test");
+			}else {
+				req.setAttribute("test", user);
+			}
+			req.setAttribute("items", userDAO.findAll());
+			req.getRequestDispatcher("/WEB-INF/component/user-admin.jsp").include(req, resp);
 		}
-		req.setAttribute("items", userDAO.findAll());
-		req.getRequestDispatcher("/WEB-INF/component/user-admin.jsp").include(req, resp);
+		
+		
 	}
 
 	
 
-	private void doDeleteUser(HttpServletRequest req, HttpServletResponse resp) {
-		try {
-			String id = req.getParameter("id");
-			userDAO.remove(id);
-			req.setAttribute("msg", "Delete thành công");
-		} catch (Exception e) {
-			req.setAttribute("msg", "Delete thất bại");
-			e.printStackTrace();
+	private void doDeleteUser(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		
+
+		Users users = (Users) req.getSession().getAttribute("user");
+		 if(users != null && users.getRole() == false) {
+			req.getRequestDispatcher("/WEB-INF/component/AccessPage.jsp").include(req, resp);
+			return;
+		}else {
+			try {
+				String id = req.getParameter("id");
+				userDAO.remove(id);
+				req.setAttribute("msg", "Delete thành công");
+				flag= true;
+			} catch (Exception e) {
+				req.setAttribute("msg", "Delete thất bại");
+				e.printStackTrace();
+			}
 		}
+		
 	}
 
 

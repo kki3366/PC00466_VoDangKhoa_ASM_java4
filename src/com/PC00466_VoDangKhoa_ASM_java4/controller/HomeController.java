@@ -93,6 +93,9 @@ public class HomeController extends HttpServlet{
 					if(users.getRole() == true) {
 						resp.sendRedirect(req.getContextPath() + "/admin");
 						return;
+					}else {
+						resp.sendRedirect(req.getContextPath() + "/Users");
+						return;
 					}
 						
 				}

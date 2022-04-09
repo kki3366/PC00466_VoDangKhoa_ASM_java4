@@ -35,5 +35,5 @@ public class Videos {
 	private String description;
 	
 	@Column(name = "Active")
-	private boolean active = false;
+	private boolean active;
 }
