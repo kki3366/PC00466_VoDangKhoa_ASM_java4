@@ -5,8 +5,10 @@
     <persistence-unit name="DB" transaction-type="RESOURCE_LOCAL">
     <class>com.PC00466_VoDangKhoa_ASM_java4.entity.Users</class>
     <class>com.PC00466_VoDangKhoa_ASM_java4.entity.Videos</class>
-    <class>com.PC00466_VoDangKhoa_ASM_java4.entity.Shares</class>
     <class>com.PC00466_VoDangKhoa_ASM_java4.entity.Favorites</class>
+    <class>com.PC00466_VoDangKhoa_ASM_java4.entity.Report</class>
+    <class>com.PC00466_VoDangKhoa_ASM_java4.entity.FavoriteUser</class>
+    <class>com.PC00466_VoDangKhoa_ASM_java4.entity.Shares</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=PC00466_VoDangKhoa_DB_ASM"/>

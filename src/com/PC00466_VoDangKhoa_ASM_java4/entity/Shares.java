@@ -4,8 +4,14 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,26 +19,32 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Share")
+@Table(name = "Share",
+			uniqueConstraints = {
+					@UniqueConstraint(columnNames = {
+							"UserID","VideoID"
+					})
+			})
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Shares {
+
 	
 	@Id
-	@Column(name = "ID")
-	private Long id;
-	
-	@Column(name = "UserID")
-	private String userId;
-	
-	@Column(name = "VideoID")
-	private String videoId;
+	Long id;
 	
 	@Column(name = "Emails")
-	private String emails;
+	String emailshare;
 	
-	@Column(name = "ShareDate")
-	private Date sharedate;
+	@Temporal(TemporalType.DATE)
+	Date shareDate= new Date();
+	
+	
+	@ManyToOne(targetEntity = Users.class, fetch = FetchType.LAZY) @JoinColumn(name = "UserID")
+	Users user_share;
+	
+	@ManyToOne(targetEntity = Videos.class, fetch =  FetchType.LAZY) @JoinColumn(name = "VideoID")
+	Videos video_share;
 }

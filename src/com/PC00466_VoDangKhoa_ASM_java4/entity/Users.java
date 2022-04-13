@@ -1,8 +1,11 @@
 package com.PC00466_VoDangKhoa_ASM_java4.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -32,4 +35,10 @@ public class Users {
 	private String email;
 	@Column(name = "Role")
 	private Boolean role = false;
+//	
+	@OneToMany(mappedBy = "user")
+	List<Favorites> favorites;
+	
+	@OneToMany(mappedBy = "user_share")
+	List<Shares> shares;
 }

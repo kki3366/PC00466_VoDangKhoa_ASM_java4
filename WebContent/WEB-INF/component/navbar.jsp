@@ -17,19 +17,39 @@
                     <a class="nav-link nav-link-1 active" aria-current="page" href="${pageContext.request.contextPath}/admin">Welcome ${ sessionScope.user.fullname}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-1" aria-current="page" href="index.html">Home</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link nav-link-2" href="${pageContext.request.contextPath}/videoAdmin">Videos Admin</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-3" href="${pageContext.request.contextPath}/userManager">User</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-4" href="contact.html">Contact</a>
+                    <a class="nav-link nav-link-4" href="${pageContext.request.contextPath}/Report">Reports</a>
                 </li>
                  <li class="nav-item">
                     <a class="nav-link nav-link-4" href="${pageContext.request.contextPath}/logoutAdmin">Logout</a>
+                </li>
+               
+            </ul>
+            </div>
+         </c:when>
+         
+          <c:when test = "${sessionScope.user != null && sessionScope.user.role == false}">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+             <li class="nav-item">
+                    <a class="nav-link nav-link-1 active" aria-current="page" href="${pageContext.request.contextPath}/Users">Welcome ${ sessionScope.user.fullname}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-2" href="${pageContext.request.contextPath}/editProfile">Update Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-3" href="${pageContext.request.contextPath}/FavoriteList">Favorite List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-4" href="${pageContext.request.contextPath}/ChangePassword">Change Password</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link nav-link-4" href="${pageContext.request.contextPath}/logoutUser">Logout</a>
                 </li>
                
             </ul>

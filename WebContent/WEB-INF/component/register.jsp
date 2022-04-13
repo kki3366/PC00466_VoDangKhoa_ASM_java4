@@ -6,6 +6,8 @@
         <div class="col-lg-12 col-12 mb-5">
           <h2 class="tm-text-primary mb-5 text-center">Đăng kí</h2>
           <form id="contact-form" action="${url}" method="POST" class="tm-contact-form mx-auto" accept-charset="utf-8">
+          <mark>${msg }</mark>
+          <br>
             <div class="form-group">
               <input type="text" id="username" name="id" class="form-control rounded-0" placeholder="Username" required pattern="[a-zA-Z0-9]+">
             </div>

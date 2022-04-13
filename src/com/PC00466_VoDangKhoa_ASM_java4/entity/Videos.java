@@ -1,8 +1,11 @@
 package com.PC00466_VoDangKhoa_ASM_java4.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -36,4 +39,10 @@ public class Videos {
 	
 	@Column(name = "Active")
 	private boolean active;
+	
+	@OneToMany(mappedBy = "video")
+	List<Favorites> favorites;
+	
+	@OneToMany(mappedBy = "video_share")
+	List<Shares> shares;
 }

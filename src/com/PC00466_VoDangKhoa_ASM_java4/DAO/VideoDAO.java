@@ -66,5 +66,23 @@ public class VideoDAO extends DAO<Videos, String>{
 	}
 	
 	
+	public List<String> findTitle(){
+		String jpql = "select n.title from Videos n";
+		TypedQuery<String> query = entityManager.createQuery(jpql,String.class);
+		List<String> list = query.getResultList();
+		return list;
+	}
+	
+	public List<String> FavoritesUser(String id){
+		String jpql = "select n.user from Favorite n where n.video.id =:id";
+		TypedQuery<String> query = entityManager.createQuery(jpql,String.class);
+		query.setParameter("id", id);
+		List<String> list = query.getResultList();
+		return list;
+	}
+	
+	
+	
+	
 
 }
