@@ -50,7 +50,7 @@ public class AdminController extends HttpServlet{
 			resp.sendRedirect(req.getContextPath() + "/login");
 			return;
 		}else if(users != null && users.getRole() == false) {
-			resp.sendRedirect(req.getContextPath() + "/User");
+			resp.sendRedirect(req.getContextPath() + "/Users");
 			return;
 		}else {
 			req.getSession().invalidate();

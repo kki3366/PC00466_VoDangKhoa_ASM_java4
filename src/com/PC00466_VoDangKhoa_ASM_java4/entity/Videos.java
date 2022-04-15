@@ -40,6 +40,7 @@ public class Videos {
 	@Column(name = "Active")
 	private boolean active;
 	
+	
 	@OneToMany(mappedBy = "video")
 	List<Favorites> favorites;
 	

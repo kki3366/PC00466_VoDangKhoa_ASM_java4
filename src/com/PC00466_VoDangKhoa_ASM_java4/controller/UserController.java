@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.PC00466_VoDangKhoa_ASM_java4.DAO.UserDAO;
 import com.PC00466_VoDangKhoa_ASM_java4.entity.Users;
 
 @WebServlet({"/Users","/editProfile","/FavoriteList","/ChangePassword","/logoutUser"})
@@ -35,11 +36,30 @@ public class UserController extends HttpServlet{
 	}
 
 	private void doChangePassword(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		UserDAO dao = new UserDAO();
 		Users users = (Users) req.getSession().getAttribute("user");
 		if(users != null && users.getRole() == true) {
 			req.getRequestDispatcher("/WEB-INF/component/AccessPage2.jsp").include(req, resp);
 			return;
 		}else {
+			String method = req.getMethod();
+			if(method.equalsIgnoreCase("POST")) {
+				String oldPassword = req.getParameter("oldPassword");
+				String newPassword = req.getParameter("newPassword");
+				String confirmNewPassword = req.getParameter("confirmNewPassword");
+				if(users.getPassword().equals(oldPassword)) {
+					if(newPassword.equals(confirmNewPassword)) {
+						users.setPassword(confirmNewPassword);
+						dao.update(users);
+						req.setAttribute("msg", "Đổi mật khẩu thành công");
+					}else {
+						req.setAttribute("msg", "Mật khẩu mới với xác nhân không khớp");
+					}
+				}else {
+					req.setAttribute("msg", "Mật khẩu cũ không đúng");
+				}
+			}
+			
 			req.getRequestDispatcher("/WEB-INF/component/changepassword-user.jsp").include(req, resp);
 		}
 	}
@@ -72,11 +92,26 @@ public class UserController extends HttpServlet{
 
 	private void doEditProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		UserDAO dao = new UserDAO();
 		Users users = (Users) req.getSession().getAttribute("user");
 		if(users != null && users.getRole() == true) {
 			req.getRequestDispatcher("/WEB-INF/component/AccessPage2.jsp").include(req, resp);
 			return;
 		}else {
+			String method = req.getMethod();
+			if(method.equalsIgnoreCase("POST")) {
+				String fullname = req.getParameter("fullname");
+				String email = req.getParameter("email");
+				users.setFullname(fullname);
+				users.setEmail(email);
+				try {
+					dao.update(users);
+					req.setAttribute("msg", "Cập nhật thành công");
+				} catch (Exception e) {
+					req.setAttribute("msg", "Cập nhật không thành công");
+					e.printStackTrace();
+				}
+			}
 			
 			req.getRequestDispatcher("/WEB-INF/component/user-edit.jsp").include(req, resp);
 		}

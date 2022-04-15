@@ -1,6 +1,9 @@
 package com.PC00466_VoDangKhoa_ASM_java4.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.beanutils.BeanUtils;
 
 import com.PC00466_VoDangKhoa_ASM_java4.DAO.UserDAO;
+import com.PC00466_VoDangKhoa_ASM_java4.DAO.VideoDAO;
 import com.PC00466_VoDangKhoa_ASM_java4.entity.Users;
+import com.PC00466_VoDangKhoa_ASM_java4.entity.Videos;
 
 
 
@@ -24,6 +29,14 @@ public class HomeController extends HttpServlet{
 		
 		String uri = req.getRequestURI();
 		if(uri.contains("home")) {
+			
+			VideoDAO videoDAO = new VideoDAO();
+			String uploadPath = req.getServletContext().getRealPath("/files");
+			File dir = new File(uploadPath);
+			String urlGet = dir.getAbsolutePath();
+			req.setAttribute("video", videoDAO.findAllActive());
+			req.setAttribute("poster", urlGet);
+			System.out.println(urlGet);
 			req.setAttribute("view", "/WEB-INF/component/videoBody.jsp");
 		}else if(uri.contains("login")) {
 			if(req.getSession().getAttribute("user") != null) {

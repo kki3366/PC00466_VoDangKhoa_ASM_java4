@@ -59,6 +59,13 @@ public class VideoDAO extends DAO<Videos, String>{
 		List<Videos> list = query.getResultList();
 		return list;
 	}
+
+	public List<Videos> findAllActive() {
+		String jpql = "select n from Videos n where n.active = 1";
+		TypedQuery<Videos> query = entityManager.createQuery(jpql,Videos.class);
+		List<Videos> list = query.getResultList();
+		return list;
+	}
 	
 	public Videos findById(String id) {
 		Videos videos = entityManager.find(Videos.class, id);

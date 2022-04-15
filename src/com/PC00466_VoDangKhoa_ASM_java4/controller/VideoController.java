@@ -1,6 +1,7 @@
 package com.PC00466_VoDangKhoa_ASM_java4.controller;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
@@ -61,12 +62,32 @@ public class VideoController extends HttpServlet{
 				String urlGet = dir.getAbsolutePath() + "\\" + videos.getPoster();
 				File check = new File(urlGet);
 				if(check.exists() == true) {
-					check.deleteOnExit();
-					if(check.getAbsoluteFile().delete() == true) {
-						System.out.println("file đã xóa");
-					}else {
-						System.out.println("file chưa xóa");
+					String filename1 = String.valueOf(check);
+					filename1=  filename1.substring(filename1.lastIndexOf("\\")+1);
+					System.out.println("File tồn tại " + "" + check);
+					Part photo = req.getPart("poster");
+					File photoFile = new File(dir, photo.getSubmittedFileName());
+//					System.out.println("file đã muốn sửa " + photo.getSubmittedFileName().toString());
+					if(filename1.equals(videos.getPoster())) {
+
+						BeanUtils.populate(videos, req.getParameterMap());
+						videos.setPoster(filename1);
+						videoDAO.update(videos);
+						req.setAttribute("msg", "Update thành công");
 					}
+					
+					
+				}else {
+					Part photo = req.getPart("poster");
+					File photoFile = new File(dir, photo.getSubmittedFileName());
+					photo.write(photoFile.getAbsolutePath());
+					String filename = String.valueOf(photoFile);
+					filename=  filename.substring(filename.lastIndexOf("\\")+1);
+					System.out.println("ảnh đã sub string là : " + filename);
+					BeanUtils.populate(videos, req.getParameterMap());
+					videos.setPoster(filename);
+					videoDAO.update(videos);
+					req.setAttribute("msg", "Update thành công");
 				}
 				Part photo = req.getPart("poster");
 				File photoFile = new File(dir, photo.getSubmittedFileName());

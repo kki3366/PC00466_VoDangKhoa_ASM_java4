@@ -34,6 +34,8 @@ public class Favorites {
 	@Id
 	private Long id;
 	
+	@Column(name = "isLike")
+	private boolean islike;
 	
 	@Temporal(TemporalType.DATE)
 	Date likeDate = new Date();

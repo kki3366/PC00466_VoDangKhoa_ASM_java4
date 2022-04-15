@@ -22,7 +22,7 @@ ${css}
 </style>
 </head>
 <body>
-<c:url var="url" value="/userManager" />
+<c:url var="url" value="editProfile" />
     <!-- Page Loader -->
     <div id="loader-wrapper">
         <div id="loader"></div>
@@ -43,7 +43,29 @@ ${css}
         </form>
     </div>
     
-    <h1>Edit work</h1>
+    <div class="container-fluid tm-mt-60">
+      <div class="row tm-mb-50">
+        <div class="col-lg-12 col-12 mb-5">
+          <h2 class="tm-text-primary mb-5 text-center">Chỉnh sửa thông tin cá nhân</h2>
+         
+          <form id="contact-form" action="${url }" method="POST" class="tm-contact-form mx-auto">
+				 <mark>${msg}</mark>
+            <div class="form-group">
+                <input type="text" name="fullname" class="form-control rounded-0" placeholder="FullName" required="">
+              </div>
+
+              <div class="form-group">
+                <input type="email" name="email" class="form-control rounded-0" placeholder="Email" required="">
+              </div>
+            
+
+            <div class="form-group tm-text-right">
+              <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
 	
 	<jsp:include page="/WEB-INF/component/footer.jsp"></jsp:include>
